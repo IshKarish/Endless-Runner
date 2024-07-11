@@ -88,6 +88,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle"))
         {
+            if (GodMod.inGodMod)
+            {
+                Destroy(other.gameObject);
+                return;
+            }
+            
             SceneManager.LoadScene(0);
         }
     }

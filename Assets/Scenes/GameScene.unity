@@ -1487,7 +1487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 12
-  sidewaysSpeed: 200
+  sidewaysSpeed: 500
   jumpForce: 8
   joystick: {fileID: 1828601336}
   controlButtons: {fileID: 1114040580}
