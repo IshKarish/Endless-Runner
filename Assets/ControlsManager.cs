@@ -3,25 +3,25 @@ using UnityEngine;
 
 public class ControlsManager : MonoBehaviour
 {
-    private string controls;
-    private TextMeshProUGUI controlsText;
+    private string _controls;
+    private TextMeshProUGUI _controlsText;
     
     private void Awake()
     {
-        controlsText = GetComponentInChildren<TextMeshProUGUI>();
+        _controlsText = GetComponentInChildren<TextMeshProUGUI>();
         
-        controls = PlayerPrefs.GetString("Controls", "JOYSTICK");
-        controlsText.text = controls;
+        _controls = PlayerPrefs.GetString("Controls", "JOYSTICK");
+        _controlsText.text = _controls;
     }
 
     public void ChangeControls()
     {
-        if (controls == "JOYSTICK") controls = "BUTTONS";
-        else if (controls == "BUTTONS") controls = "JOYSTICK";
+        if (_controls == "JOYSTICK") _controls = "BUTTONS";
+        else if (_controls == "BUTTONS") _controls = "JOYSTICK";
 
-        controlsText.text = controls;
+        _controlsText.text = _controls;
 
-        PlayerPrefs.SetString("Controls", controls);
+        PlayerPrefs.SetString("Controls", _controls);
         PlayerPrefs.Save();
     }
 }

@@ -10,6 +10,7 @@ public class MenuEssentials : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        Application.targetFrameRate = 60;
     }
 
     public void LoadScene(int buildIndex)
