@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
         if (_controls == "JOYSTICK") JoystickControls();
         else if (_controls == "BUTTONS") Move(_horizontal);
 
-        if (transform.position.y <= 1) SceneManager.LoadScene(0);
+        if (transform.position.y < -1) SceneManager.LoadScene(0);
     }
     
     // Movement functions
