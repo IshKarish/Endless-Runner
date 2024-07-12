@@ -26,7 +26,9 @@ public class ScoreTracker : MonoBehaviour
 
     private void AddScore(int score)
     {
-        _score += score;
+        if (DailyReward.Reward == DailyReward.RewardType.DoubleScore) _score += score * 2;
+        else _score += score;
+        
         scoreText.text = "Score: " + _score;
 
         if (_score <= _highScore) return;

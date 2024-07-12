@@ -65,7 +65,13 @@ public class RoadSpawner : MonoBehaviour
     Coin GetRandomCoin()
     {
         Coin coin = coins[0];
-        float random = Random.Range(0, 1.5f);
+        float random = Random.Range(0, 1.2f);
+
+        if (DailyReward.Reward == DailyReward.RewardType.BetterCoins)
+        {
+            if (random < 1) return coins[Random.Range(0, coins.Length)];
+            return coin;
+        }
         
         if (random < 1) return coin;
         return coins[Random.Range(0, coins.Length)];

@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Speeds & Values")]
     [SerializeField] private float moveSpeed = 10;
+    [SerializeField] private float slowerSpeed = 5;
     [SerializeField] private float sidewaysSpeed = 10;
     [SerializeField] private float jumpForce = 10;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private string _controls;
     private float _horizontal;
+    private bool _wastedExtraLife;
 
     private void Awake()
     {
@@ -51,7 +53,10 @@ public class PlayerController : MonoBehaviour
     // Movement functions
     void MoveForward()
     {
-        transform.Translate(Vector3.forward * (Time.deltaTime * moveSpeed), Space.World);
+        float speed = moveSpeed;
+        if (DailyReward.Reward == DailyReward.RewardType.SlowerSpeed) speed = slowerSpeed;
+        
+        transform.Translate(Vector3.forward * (Time.deltaTime * speed), Space.World);
     }
     
     void Move(float horizontal)
@@ -68,7 +73,8 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (IsGrounded()) _rb.velocity = Vector3.up * jumpForce;
+        if (DailyReward.Reward == DailyReward.RewardType.UnlimitedJumps) _rb.velocity = Vector3.up * jumpForce;
+        else if (IsGrounded()) _rb.velocity = Vector3.up * jumpForce;
     }
     
     // Controls management
@@ -91,6 +97,13 @@ public class PlayerController : MonoBehaviour
             if (GodMod.inGodMod)
             {
                 Destroy(other.gameObject);
+                return;
+            }
+
+            if (DailyReward.Reward == DailyReward.RewardType.ExtraLife && !_wastedExtraLife)
+            {
+                Destroy(other.gameObject);
+                _wastedExtraLife = true;
                 return;
             }
             
