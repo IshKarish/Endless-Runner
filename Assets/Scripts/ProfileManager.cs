@@ -13,6 +13,9 @@ public class ProfileManager : MonoBehaviour
 
     private void Awake()
     {
+        if (!UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.Camera))
+            UnityEngine.Android.Permission.RequestUserPermission(UnityEngine.Android.Permission.Camera);
+        
         _profileImage = GetComponent<RawImage>();
 
         Texture2D loadedPhoto = LoadPhoto();
