@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DailyReward : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class DailyReward : MonoBehaviour
     [SerializeField] private Sprite[] rewardSprites = new Sprite[7];
 
     public static RewardType Reward;
+
+    private Vector3 _initialPos;
 
     public enum RewardType
     {
@@ -27,12 +30,20 @@ public class DailyReward : MonoBehaviour
 
     private void Start()
     {
+        _initialPos = transform.localPosition;
+        transform.DOLocalMove(Vector3.zero, 2f);
+        
         if (PlayerPrefs.HasKey("LastClaimedTime"))
             _lastClaimedTime = DateTime.Parse(PlayerPrefs.GetString("LastClaimedTime"));
         else
             _lastClaimedTime = DateTime.MinValue;
         
         UpdateRewardUI();
+    }
+
+    public void ClosePanel()
+    {
+        transform.DOLocalMove(_initialPos * -1, 2f);
     }
 
     private void UpdateRewardUI()
